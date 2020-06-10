@@ -7,7 +7,7 @@ const router = Router()
 // Get list of all blogs
 router.get( '/', async ( _, res, next ) => {
   try {
-    const blogs = await BlogSchema.find()
+    const blogs = await BlogSchema.find().select( '-__v' )
     res.json( blogs )
   } catch ( err ) { next( err ) }
 } )
@@ -29,12 +29,13 @@ router.post( '/', async ( req, res, next ) => {
   } catch ( err ) { next( err ) }
 } )
 
-// Blog by ID
+// Get blog by ID
 router.get( '/:blogId', async ( req, res, next ) => {
   try {
-    const blog = await BlogSchema.findById( req.params.blogId )
+    const blog = await BlogSchema.findById( req.params.blogId ).select( '-__v' )
     res.json( blog )
   } catch ( err ) { next( err ) }
 } )
+
 
 export default router
