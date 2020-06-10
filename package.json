@@ -1,6 +1,6 @@
 {
   "name": "carleton-web-dev-club-api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "RESTful API for Carleton Web Dev Club",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,15 @@
     "lint": "eslint .",
     "stop:mongo": "cd mongodb && docker-compose down"
   },
-  "author": "",
-  "license": "MIT",
+  "author": "https://github.com/Carleton-Web-Dev-Club/club-site-api/graphs/contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carleton-Web-Dev-Club/club-site-api"
+  },
+  "bugs": {
+    "url": "https://github.com/Carleton-Web-Dev-Club/club-site-api/issues"
+  },
+  "homepage": "https://github.com/Carleton-Web-Dev-Club/club-site-api/#readme",
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
