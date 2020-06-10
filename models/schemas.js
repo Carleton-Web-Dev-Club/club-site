@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Timestamp } from '../lib/utils'
 
 export const BlogSchema = mongoose.model(
   'Blog',
@@ -16,16 +17,16 @@ export const BlogSchema = mongoose.model(
       required: true,
     },
     dateUploaded: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      default: Timestamp(),
     },
     dateUpdated: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      default: Timestamp(),
     },
     datePublished: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      default: Timestamp(),
     },
     language: {
       type: String,
