@@ -20,7 +20,7 @@ const startServer = async () => {
   )
 
   // Middleware
-  app.use( morgan( 'dev' ) )
+  app.use( morgan( 'dev' ) ) // Deprecation warning is because of https://github.com/expressjs/morgan/issues/190
   app.use( bodyParser.json() )
 
   // Routes
@@ -36,16 +36,16 @@ const startServer = async () => {
 
   // 404 errors
   app.use( ( _res, _req, next ) => {
-    const error = new Error( 'Not Found' )
+    const error = new Error( 'Not found' )
     error.status = 404
     next( error )
   } )
 
   // Error handler (all errors are passed to this)
-  app.use( ( { message, status }, { method, path, query }, res, next ) => {
+  app.use( ( { message, status }, { method, path }, res, next ) => {
     res.status( status || 500 ).json( {
       error: true,
-      request: { method, path, query },
+      request: { method, path },
       message,
     } )
     next()
