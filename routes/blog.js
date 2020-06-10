@@ -5,17 +5,15 @@ import { List } from '../lib/utils'
 const router = Router()
 
 // Get list of all blogs
-router.get( '/', async ( _, res ) => {
+router.get( '/', async ( _, res, next ) => {
   try {
     const blogs = await BlogSchema.find()
     res.json( blogs )
-  } catch ( err ) {
-    res.json( { message: err } )
-  }
+  } catch ( err ) { next( err ) }
 } )
 
 // Submit a blog
-router.post( '/', async ( req, res ) => {
+router.post( '/', async ( req, res, next ) => {
   const blog = new BlogSchema( {
     author: req.body.author,
     content: req.body.content,
@@ -28,19 +26,15 @@ router.post( '/', async ( req, res ) => {
   try {
     const saveBlog = await blog.save()
     res.json( saveBlog )
-  } catch ( err ) {
-    res.json( { message: err } )
-  }
+  } catch ( err ) { next( err ) }
 } )
 
 // Blog by ID
-router.get( '/:blogId', async ( req, res ) => {
+router.get( '/:blogId', async ( req, res, next ) => {
   try {
     const blog = await BlogSchema.findById( req.params.blogId )
     res.json( blog )
-  } catch ( err ) {
-    res.json( { message: err } )
-  }
+  } catch ( err ) { next( err ) }
 } )
 
 export default router

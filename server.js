@@ -2,11 +2,9 @@ import express from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
+import morgan from 'morgan'
 
-import blog from './routes/blog'
-import events from './routes/events'
-import projects from './routes/projects'
-import users from './routes/users'
+import apiRoutes from './routes'
 
 
 const app = express()
@@ -14,30 +12,49 @@ const app = express()
 // Load environment vars
 dotenv.config()
 
-// DB
-mongoose.connect(
-  `${process.env.DB_CONNECT}`,
-  () => console.log( 'Connected to MongoDB' ),
-)
+const startServer = async () => {
+  // Connect to DB
+  await mongoose.connect(
+    `${process.env.DB_CONNECT}`,
+    () => console.log( 'Connected to MongoDB' ),
+  )
 
-// Middleware
-app.use( bodyParser.json() )
+  // Middleware
+  app.use( morgan( 'dev' ) )
+  app.use( bodyParser.json() )
 
-// Routes
-app.get( '/', ( _req, res ) => {
-  res.json( {
-    name: 'Carleton Web Dev Club RESTful API',
-    version: '0.1.0',
-    docs: 'Coming Soon!!!',
+  // Routes
+  app.get( '/', ( _req, res ) => {
+    res.json( {
+      name: 'Carleton Web Dev Club RESTful API',
+      version: '0.1.0',
+      docs: 'Coming Soon!!!',
+    } )
   } )
-} )
 
-app.use( '/blog', blog )
-app.use( '/events', events )
-app.use( '/projects', projects )
-app.use( '/users', users )
+  app.use( apiRoutes )
 
-// Server
-app.listen( 5000, () => {
-  console.log( 'Server ready at http://localhost:5000/' )
-} )
+  // 404 errors
+  app.use( ( _res, _req, next ) => {
+    const error = new Error( 'Not Found' )
+    error.status = 404
+    next( error )
+  } )
+
+  // Error handler (all errors are passed to this)
+  app.use( ( { message, status }, { method, path, query }, res, next ) => {
+    res.status( status || 500 ).json( {
+      error: true,
+      request: { method, path, query },
+      message,
+    } )
+    next()
+  } )
+
+  // Server
+  app.listen( 5000, () => {
+    console.log( 'Server ready at http://localhost:5000/' )
+  } )
+}
+
+startServer()
