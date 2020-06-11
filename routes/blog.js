@@ -108,6 +108,49 @@ router.delete( '/:blogId', async (
   } catch ( err ) { return next( err ) }
 } )
 
+// Get status of a blog post
+router.get( '/:blogId/status', async (
+  {
+    params: { blogId },
+  },
+  res,
+  next,
+) => {
+  try {
+    const blog = await getBlogId( blogId )
+
+    if ( blog ) {
+      const { published, datePublished } = blog
+      return res.json( { published, datePublished } )
+    }
+
+    return next( blogDnE( blogId ) )
+  } catch ( err ) { return next( err ) }
+} )
+
 // Change status of a blog post
+router.patch( '/:blogId/status', async (
+  {
+    params: { blogId },
+  },
+  res,
+  next,
+) => {
+  try {
+    const blog = await getBlogId( blogId )
+    if ( blog ) {
+      const updatedFields = {}
+
+      updatedFields.published = !blog.published
+      updatedFields.datePublished = !blog.published ? Timestamp() : ''
+
+      // update the fields in DB
+      await BlogSchema.updateOne( { _id: blogId }, { $set: updatedFields } ).exec()
+
+      return res.json( { message: 'Updated the following items', updatedFields } )
+    }
+    return next( blogDnE( blogId ) )
+  } catch ( err ) { return next( err ) }
+} )
 
 export default router
