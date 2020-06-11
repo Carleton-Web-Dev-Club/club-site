@@ -8,8 +8,8 @@ const router = Router()
 router.get( '/', async ( _, res, next ) => {
   try {
     const blogs = await BlogSchema.find().select( '-__v' )
-    res.json( blogs )
-  } catch ( err ) { next( err ) }
+    return res.json( blogs )
+  } catch ( err ) { return next( err ) }
 } )
 
 // Submit a blog
@@ -31,8 +31,8 @@ router.post( '/', async (
 
   try {
     const saveBlog = await blog.save()
-    res.json( saveBlog )
-  } catch ( err ) { next( err ) }
+    return res.json( saveBlog )
+  } catch ( err ) { return next( err ) }
 } )
 
 // Get blog by ID
@@ -44,13 +44,11 @@ router.get( '/:blogId', async (
   try {
     const blog = await BlogSchema.findById( blogId ).select( '-__v' )
 
-    if ( blog ) res.json( blog )
+    if ( blog ) return res.json( blog )
 
     // No blog found
-    const error = new Error( `Blog post ${blogId} does not exist` )
-    error.status = 404
-    next( error )
-  } catch ( err ) { next( err ) }
+    return next( { message: `Blog post ${blogId} does not exist` } )
+  } catch ( err ) { return next( err ) }
 } )
 
 // Update blog by ID
@@ -82,10 +80,10 @@ router.patch( '/:blogId', async (
     const { nModified } = updateBlog
 
     // DB was updated
-    if ( nModified !== 0 ) res.json( { message: 'Updated the following items', updatedFields } )
+    if ( nModified !== 0 ) return res.json( { message: 'Updated the following items', updatedFields } )
 
-    next( { message: `Blog post ${blogId} does not exist` } )
-  } catch ( err ) { next( err ) }
+    return next( { message: `Blog post ${blogId} does not exist` } )
+  } catch ( err ) { return next( err ) }
 } )
 
 // Delete a blog by ID
@@ -96,8 +94,8 @@ router.delete( '/:blogId', async (
 ) => {
   try {
     await BlogSchema.remove( { _id: blogId } )
-    res.json( { message: `Deleted ${blogId}` } )
-  } catch ( err ) { next( err ) }
+    return res.json( { message: `Deleted ${blogId}` } )
+  } catch ( err ) { return next( err ) }
 } )
 
 // Change status of a blog post
