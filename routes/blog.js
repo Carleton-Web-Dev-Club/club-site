@@ -35,6 +35,15 @@ router.post( '/', async (
   } catch ( err ) { return next( err ) }
 } )
 
+/**
+ *
+ * @param {string} id The ID for the blog to query
+ * @returns'{Object} with the data or null
+ */
+const getBlogId = async id => BlogSchema.findById( id )
+
+const blogDnE = id => ( { message: `Blog post ${id} does not exist`, status: 404 } )
+
 // Get blog by ID
 router.get( '/:blogId', async (
   { params: { blogId } },
@@ -42,12 +51,11 @@ router.get( '/:blogId', async (
   next,
 ) => {
   try {
-    const blog = await BlogSchema.findById( blogId ).select( '-__v' )
+    const blog = await getBlogId( blogId )
 
     if ( blog ) return res.json( blog )
 
-    // No blog found
-    return next( { message: `Blog post ${blogId} does not exist` } )
+    return next( blogDnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
@@ -61,28 +69,27 @@ router.patch( '/:blogId', async (
   next,
 ) => {
   try {
-    const updatedFields = {}
+    if ( await getBlogId( blogId ) ) {
+      const updatedFields = {}
 
-    // Add all the incoming fields to object
-    Object.keys( body )
-      .forEach( key => { updatedFields[ key ] = body[ key ] } )
+      // Add all the incoming fields to object
+      Object.keys( body )
+        .forEach( key => { updatedFields[ key ] = body[ key ] } )
 
-    // Convert tags and category to array
-    Object.keys( body )
-      .filter( key => key === 'tags' || key === 'category' )
-      .forEach( key => { updatedFields[ key ] = List( body[ key ] ) } )
+      // Convert tags and category to array
+      Object.keys( body )
+        .filter( key => key === 'tags' || key === 'category' )
+        .forEach( key => { updatedFields[ key ] = List( body[ key ] ) } )
 
-    // Update the date
-    updatedFields.dateUpdated = Timestamp()
+      // Update the date
+      updatedFields.dateUpdated = Timestamp()
 
-    // update the fields
-    const updateBlog = await BlogSchema.updateOne( { _id: blogId }, { $set: updatedFields } ).exec()
-    const { nModified } = updateBlog
+      // update the fields in DB
+      await BlogSchema.updateOne( { _id: blogId }, { $set: updatedFields } ).exec()
 
-    // DB was updated
-    if ( nModified !== 0 ) return res.json( { message: 'Updated the following items', updatedFields } )
-
-    return next( { message: `Blog post ${blogId} does not exist` } )
+      return res.json( { message: 'Updated the following items', updatedFields } )
+    }
+    return next( blogDnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
@@ -93,8 +100,11 @@ router.delete( '/:blogId', async (
   next,
 ) => {
   try {
-    await BlogSchema.remove( { _id: blogId } )
-    return res.json( { message: `Deleted ${blogId}` } )
+    if ( await getBlogId( blogId ) ) {
+      await BlogSchema.remove( { _id: blogId } )
+      return res.json( { message: `Deleted ${blogId}` } )
+    }
+    return next( blogDnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
