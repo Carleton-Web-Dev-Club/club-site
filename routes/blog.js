@@ -143,6 +143,7 @@ router.patch( '/:blogId/status', async (
 
       updatedFields.published = !blog.published
       updatedFields.datePublished = !blog.published ? Timestamp() : ''
+      updatedFields.dateUpdated = Timestamp()
 
       // update the fields in DB
       await BlogSchema.updateOne( { _id: blogId }, { $set: updatedFields } ).exec()
