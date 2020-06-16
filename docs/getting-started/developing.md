@@ -7,7 +7,7 @@
 
 ## Running this API locally:
 
-1. Rename [`.env.example`](./.env.example) to `.env`
+1. Rename [`.env.example`](https://github.com/Carleton-Web-Dev-Club/club-site-api/blob/master/.env.example) to `.env`
 2. Install Node dependencies using:
    ```
    npm install
@@ -38,6 +38,8 @@ dev         uses nodemon on top of start
 lint        runs eslint
 
 stop:mongo  Stop the mongodb server using docker-compose
+
+docs        Serve docs at http://localhost:3000
 ```
 
 
