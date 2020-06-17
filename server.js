@@ -6,7 +6,6 @@ import morgan from 'morgan'
 
 import apiRoutes from './routes'
 
-
 const app = express()
 
 // Load environment vars
