@@ -1,3 +1,3 @@
 - [Developing](/getting-started/developing.md)
-- [API Docs](/api-docs/readme.md)
+- [API Docs](/api-docs/guide.md)
 - [Contributing](/getting-started/contributing.md)
