@@ -4,6 +4,7 @@ import { Timestamp } from '../lib/utils'
 export const BlogSchema = mongoose.model(
   'Blog',
   new mongoose.Schema( {
+    // Link it to USER
     author: {
       type: String,
       required: true,
@@ -41,6 +42,39 @@ export const BlogSchema = mongoose.model(
     published: {
       type: Boolean,
       default: true,
+    },
+  } ),
+)
+
+export const EventSchema = mongoose.model(
+  'Events',
+  new mongoose.Schema( {
+    // Link it to USER
+    organizer: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    startDate: {
+      type: String,
+      default: Timestamp(),
+      required: true,
+    },
+    endDate: {
+      type: String,
+      default: Timestamp(),
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
     },
   } ),
 )
