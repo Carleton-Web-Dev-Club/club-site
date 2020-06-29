@@ -46,5 +46,20 @@ app.post( '/', async ( { body }, res, next ) => {
   } catch ( err ) { return next( err ) }
 } )
 
+// Delete an event using ID
+app.delete( '/:eventId', async (
+  { params: { eventId } },
+  res,
+  next,
+) => {
+  try {
+    if ( await GetItemById( EventSchema, eventId ) ) {
+      await EventSchema.deleteOne( { _id: eventId } )
+      return res.json( { message: `Deleted ${eventId}` } )
+    }
+    return next( DnE( eventId ) )
+  } catch ( err ) { return next( err ) }
+} )
+
 
 export default app
