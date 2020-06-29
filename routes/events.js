@@ -12,6 +12,20 @@ app.get( '/', async ( _, res, next ) => {
   } catch ( err ) { return next( err ) }
 } )
 
+// Get a single event using ID
+app.get( '/:eventId', async (
+  { params: { eventId } },
+  res,
+  next,
+) => {
+  try {
+    const event = await GetItemById( EventSchema, eventId )
+
+    if ( event ) return res.json( event )
+    return next( DnE( eventId ) )
+  } catch ( err ) { return next( err ) }
+} )
+
 // Add an event
 app.post( '/', async ( { body }, res, next ) => {
   try {
