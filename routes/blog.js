@@ -13,18 +13,11 @@ router.get( '/', async ( _, res, next ) => {
 } )
 
 // Submit a blog
-router.post( '/', async (
-  {
-    body: { author, content, title, language, tags, category },
-  },
-  res,
-  next,
-) => {
+router.post( '/', async ( { body }, res, next ) => {
+  const { tags, category } = body
+
   const blog = new BlogSchema( {
-    author,
-    content,
-    title,
-    language,
+    ...body,
     tags: List( tags ),
     category: List( category ),
   } )
