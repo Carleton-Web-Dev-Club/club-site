@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { BlogSchema } from '../models/schemas'
-import { List, Timestamp } from '../lib/utils'
+import { List, Timestamp, GetItemById, DnE } from '../lib/utils'
 
 const router = Router()
 
@@ -28,15 +28,6 @@ router.post( '/', async ( { body }, res, next ) => {
   } catch ( err ) { return next( err ) }
 } )
 
-/**
- *
- * @param {string} id The ID for the blog to query
- * @returns'{Object} with the data or null
- */
-const getBlogId = async id => BlogSchema.findById( id )
-
-const blogDnE = id => ( { message: `Blog post ${id} does not exist`, status: 404 } )
-
 // Get blog by ID
 router.get( '/:blogId', async (
   { params: { blogId } },
@@ -44,11 +35,11 @@ router.get( '/:blogId', async (
   next,
 ) => {
   try {
-    const blog = await getBlogId( blogId )
+    const blog = await GetItemById( BlogSchema, blogId )
 
     if ( blog ) return res.json( blog )
 
-    return next( blogDnE( blogId ) )
+    return next( DnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
@@ -62,7 +53,7 @@ router.patch( '/:blogId', async (
   next,
 ) => {
   try {
-    if ( await getBlogId( blogId ) ) {
+    if ( await GetItemById( BlogSchema, blogId ) ) {
       const updatedFields = {}
 
       // Add all the incoming fields to object
@@ -82,7 +73,7 @@ router.patch( '/:blogId', async (
 
       return res.json( { message: 'Updated the following items', updatedFields } )
     }
-    return next( blogDnE( blogId ) )
+    return next( DnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
@@ -93,11 +84,11 @@ router.delete( '/:blogId', async (
   next,
 ) => {
   try {
-    if ( await getBlogId( blogId ) ) {
+    if ( await GetItemById( BlogSchema, blogId ) ) {
       await BlogSchema.remove( { _id: blogId } )
       return res.json( { message: `Deleted ${blogId}` } )
     }
-    return next( blogDnE( blogId ) )
+    return next( DnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
@@ -110,14 +101,14 @@ router.get( '/:blogId/status', async (
   next,
 ) => {
   try {
-    const blog = await getBlogId( blogId )
+    const blog = await GetItemById( BlogSchema, blogId )
 
     if ( blog ) {
       const { published, datePublished } = blog
       return res.json( { published, datePublished } )
     }
 
-    return next( blogDnE( blogId ) )
+    return next( DnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
@@ -130,7 +121,7 @@ router.patch( '/:blogId/status', async (
   next,
 ) => {
   try {
-    const blog = await getBlogId( blogId )
+    const blog = await GetItemById( BlogSchema, blogId )
     if ( blog ) {
       const updatedFields = {}
 
@@ -143,7 +134,7 @@ router.patch( '/:blogId/status', async (
 
       return res.json( { message: 'Updated the following items', updatedFields } )
     }
-    return next( blogDnE( blogId ) )
+    return next( DnE( blogId ) )
   } catch ( err ) { return next( err ) }
 } )
 
