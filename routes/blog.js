@@ -85,7 +85,7 @@ router.delete( '/:blogId', async (
 ) => {
   try {
     if ( await GetItemById( BlogSchema, blogId ) ) {
-      await BlogSchema.remove( { _id: blogId } )
+      await BlogSchema.deleteOne( { _id: blogId } )
       return res.json( { message: `Deleted ${blogId}` } )
     }
     return next( DnE( blogId ) )
