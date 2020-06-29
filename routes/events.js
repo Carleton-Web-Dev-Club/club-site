@@ -61,5 +61,34 @@ app.delete( '/:eventId', async (
   } catch ( err ) { return next( err ) }
 } )
 
+// Update an event using ID
+app.patch( '/:eventId', async (
+  {
+    body,
+    params: { eventId },
+  },
+  res,
+  next,
+) => {
+  try {
+    if ( await GetItemById( EventSchema, eventId ) ) {
+      const updatedFields = {}
 
+      // Add all the incoming fields to object
+      Object.keys( body )
+        .forEach( key => { updatedFields[ key ] = body[ key ] } )
+
+      // Format dates
+      Object.keys( body )
+        .filter( key => key === 'startDate' || key === 'endDate' )
+        .forEach( key => { updatedFields[ key ] = FormatDateTime( body[ key ] ) } )
+
+      // update the fields in DB
+      await EventSchema.updateOne( { _id: eventId }, { $set: updatedFields } ).exec()
+
+      return res.json( { message: 'Updated the following items', updatedFields } )
+    }
+    return next( DnE( eventId ) )
+  } catch ( err ) { return next( err ) }
+} )
 export default app
