@@ -77,7 +77,6 @@ Route: `/blog/:blogId`
     "author": "Tester",
     "content": "This is a sample request to API",
     "title": "Testing Mongo",
-    "__v": 0
 }
 </pre>
 </details>
