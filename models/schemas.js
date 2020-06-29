@@ -18,15 +18,15 @@ export const BlogSchema = mongoose.model(
       required: true,
     },
     dateUploaded: {
-      type: String,
+      type: Date,
       default: Timestamp(),
     },
     dateUpdated: {
-      type: String,
+      type: Date,
       default: Timestamp(),
     },
     datePublished: {
-      type: String,
+      type: Date,
       default: Timestamp(),
     },
     language: {
@@ -63,13 +63,11 @@ export const EventSchema = mongoose.model(
       required: true,
     },
     startDate: {
-      type: String,
-      default: Timestamp(),
+      type: Date,
       required: true,
     },
     endDate: {
-      type: String,
-      default: Timestamp(),
+      type: Date,
       required: true,
     },
     location: {
