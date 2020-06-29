@@ -12,5 +12,25 @@ app.get( '/', async ( _, res, next ) => {
   } catch ( err ) { return next( err ) }
 } )
 
+// Add an event
+app.post( '/', async ( { body }, res, next ) => {
+  try {
+    const { startDate, endDate } = body
+    const formattedStartDate = FormatDateTime( startDate )
+    const formattedEndDate = FormatDateTime( endDate )
+    ValidateDateTime( formattedStartDate, formattedEndDate )
+
+    const event = new EventSchema( {
+      ...body,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+    } )
+
+    const saveEvent = await event.save()
+
+    return res.json( saveEvent )
+  } catch ( err ) { return next( err ) }
+} )
+
 
 export default app
