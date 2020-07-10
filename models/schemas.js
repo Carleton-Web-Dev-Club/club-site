@@ -76,3 +76,26 @@ export const EventSchema = mongoose.model(
     },
   } ),
 )
+
+export const ProjectSchema = mongoose.model(
+  'Projects',
+  new mongoose.Schema( {
+    // Link it to USERS
+    contributors: [ {
+      type: String,
+      required: true,
+    } ],
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    createdDate: {
+      type: Date,
+      required: true,
+    },
+  } ),
+)
