@@ -8,18 +8,24 @@
 ## Running this API locally:
 
 1. Rename [`.env.example`](https://github.com/Carleton-Web-Dev-Club/club-site-api/blob/master/.env.example) to `.env`
+   
+   **Note**: Make sure that you provide `DB_CONNECT` to make sure that it runs properly. 
 2. Install Node dependencies using:
    ```
    npm install
    ```
-3. To run this locally it will start up a mongodb instance using dockers and will persist the data in `mongodb/data`. Using the following command:
+3. If you want to run mongodb using dockers then:
    ```
-   npm start
+   npm run install:docker
+   ```
+4. To run this locally it will start up a mongodb instance using dockers and will persist the data in `mongodb/data`. Using the following command:
+   ```
+   npm run dev
    ```
    The API should be running at http://localhost:5000
 
-    **Note**: The first time around it will take a bit for dockers to setup a mongodb intance.
-4. Terminating the node server will not turn of the mongodb instance. So you will need to turn off the container yourself. You can use:
+    **Note**: The first time around it will take a bit for dockers to setup a mongodb instance.
+5. Terminating the node server will not turn of the mongodb instance. So you will need to turn off the container yourself. You can use:
    ```
    npm run stop:mongo
    ```
@@ -32,8 +38,11 @@ To test this you can use [Postman](https://www.postman.com) or a vscode-extensio
 
 Commands:
 ```
-start       Start the API server and a mongoDB instance using docker-compose 
-dev         uses nodemon on top of start
+start       Start the API server. You will need to start a mongodb instance 
+dev         uses nodemon and spins up the server and a mongodb server (using dockers)
+start:mongo  Starts a mongodb server using docker-compose
+
+install:docker Pulls the mongo image from docker hub using docker-compose
 
 lint        runs eslint
 

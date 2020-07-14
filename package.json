@@ -4,15 +4,14 @@
   "description": "RESTful API for Carleton Web Dev Club",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm run start:mongo",
-    "postinstall": "cd mongodb && docker-compose pull",
     "start": "npm run start:server",
-    "start:server":"node -r esm server.js",
+    "start:server": "node -r esm server.js",
     "dev": "npm run start:mongo && nodemon -L --exec npm run start:server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "start:mongo": "cd mongodb && docker-compose up -d",
     "stop:mongo": "cd mongodb && docker-compose down",
+    "install:docker": "cd mongodb && docker-compose pull",
     "docs": "docsify serve docs"
   },
   "author": "https://github.com/Carleton-Web-Dev-Club/club-site-api/graphs/contributors",
