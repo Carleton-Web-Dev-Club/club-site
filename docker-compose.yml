@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+    api:
+      container_name: Club-Site-API
+      build: .
+      restart: always
+      ports:
+        - 5000:5000
+      depends_on:
+        - mongo
+      links:
+        - mongo
+      environment: 
+        DB_CONNECT: mongodb://mongo:27017/Club-Site-API-Database
+
+    mongo:
+      container_name: Club-Site-API-Database
+      image: mongo
+      restart: always
+      volumes:
+        - ./mongodb/data:/data/db

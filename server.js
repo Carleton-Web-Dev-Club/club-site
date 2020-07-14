@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 
+import { version } from './package.json'
 import apiRoutes from './src/routes'
 
 const app = express()
@@ -19,6 +20,7 @@ const startServer = async () => {
     await mongoose.connect( `${DB_CONNECT}` )
     console.log( 'Connected to MongoDB' )
   } catch ( err ) {
+    console.log( err )
     console.error( 'Unable to connect to MongoDB' )
     return process.exit( 126 )
   }
@@ -31,8 +33,8 @@ const startServer = async () => {
   app.get( '/', ( _req, res ) => {
     res.json( {
       name: 'Carleton Web Dev Club RESTful API',
-      version: '0.1.0',
-      docs: 'Coming Soon!!!',
+      version,
+      docs: 'https://carleton-web-dev-club.github.io/club-site-api/',
     } )
   } )
 
