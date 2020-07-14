@@ -10,13 +10,18 @@ const app = express()
 
 // Load environment vars
 dotenv.config()
+const { DB_CONNECT } = process.env
 
+// eslint-disable-next-line consistent-return
 const startServer = async () => {
   // Connect to DB
-  await mongoose.connect(
-    `${process.env.DB_CONNECT}`,
-    () => console.log( 'Connected to MongoDB' ),
-  )
+  try {
+    await mongoose.connect( `${DB_CONNECT}` )
+    console.log( 'Connected to MongoDB' )
+  } catch ( err ) {
+    console.error( 'Unable to connect to MongoDB' )
+    return process.exit( 126 )
+  }
 
   // Middleware
   app.use( morgan( 'dev' ) ) // Deprecation warning is because of https://github.com/expressjs/morgan/issues/190
