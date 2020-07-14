@@ -106,3 +106,37 @@ Fields:
 ---
 1. Checkout [momentJS docs](https://momentjs.com/docs/#/parsing/string/) for formating date and time.
 ---
+
+
+## PATCH
+
+### Modify by project ID
+Modify a project
+
+Route: `/projects/:projectId`
+
+Use any of the fields in create a project except contributors field.
+Note: Currently updating contributors filed is not supported
+
+<!-- Sample Request -->
+<details>
+    <Summary>Sample Request</Summary>
+    <pre>
+        {
+        "name": "wonderful API 3",
+        }
+    </pre>
+</details>
+
+<!-- Sample Response -->
+<details>
+    <Summary>Sample Response</Summary>
+    <pre>
+        {
+            "message": "Updated the following items",
+            "updatedFields": {
+                "name": "wonderful API 3"
+            }
+        }
+    </pre>
+</details>
