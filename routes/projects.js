@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { ProjectSchema } from '../models/schemas'
-import { List, FormatDateTime, Timestamp } from '../lib/utils'
+import { List, FormatDateTime, Timestamp, GetItemById, DnE } from '../lib/utils'
 
 const app = Router()
 
@@ -9,6 +9,20 @@ app.get( '/', async ( _, res, next ) => {
   try {
     const events = await ProjectSchema.find().select( '-__v' )
     return res.json( events )
+  } catch ( err ) { return next( err ) }
+} )
+
+// Get a single project using ID
+app.get( '/:projectId', async (
+  { params: { projectId } },
+  res,
+  next,
+) => {
+  try {
+    const event = await GetItemById( ProjectSchema, projectId )
+
+    if ( event ) return res.json( event )
+    return next( DnE( projectId ) )
   } catch ( err ) { return next( err ) }
 } )
 
