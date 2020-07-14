@@ -4,9 +4,13 @@ import { List, FormatDateTime, Timestamp } from '../lib/utils'
 
 const app = Router()
 
-app.get( '/', ( _, res ) => (
-  res.json( { message: 'PROJECTS ROUTE' } )
-) )
+// Get list of all projects
+app.get( '/', async ( _, res, next ) => {
+  try {
+    const events = await ProjectSchema.find().select( '-__v' )
+    return res.json( events )
+  } catch ( err ) { return next( err ) }
+} )
 
 // Create a project
 app.post( '/', async ( { body }, res, next ) => {

@@ -1,5 +1,42 @@
 # Projects
 
+## GET
+
+###  List of all projects
+Returns a list (array of JSON objects) of all projects.
+
+Route: `/projects`
+
+<!-- Sample Response -->
+<details>
+<summary>Sample Response</summary>
+<pre>
+[
+    {
+        "contributors": [
+            "test",
+            "test2"
+        ],
+        "_id": "5f089dcf520ee1090b7bea56",
+        "createdDate": "2020-07-10T16:56:29.830Z",
+        "name": "wonderful API",
+        "description": "The wonderful api"
+    },
+    {
+        "contributors": [
+            "test1",
+            "test2"
+        ],
+        "_id": "5f089dde520ee1090b7bea57",
+        "createdDate": "2020-07-10T16:56:29.830Z",
+        "name": "Wonderful API 2",
+        "description": "The 2nd wonderful api"
+    },
+]
+</pre>
+</details>
+
+
 ## POST
 
 ### Create a project
