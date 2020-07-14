@@ -58,6 +58,7 @@ router.patch( '/:blogId', async (
 
       // Add all the incoming fields to object
       Object.keys( body )
+        .filter( key => key !== '_id' ) // No one should be able to update `_id`
         .forEach( key => { updatedFields[ key ] = body[ key ] } )
 
       // Convert tags and category to array

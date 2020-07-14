@@ -59,6 +59,7 @@ app.patch( '/:projectId', async (
 
       // Add all the incoming fields to object
       Object.keys( body )
+        .filter( key => key !== '_id' ) // No one should be able to update `_id`
         .filter( key => key !== 'contributors' ) // Doesn't support updating contributors
         .forEach( key => { updatedFields[ key ] = body[ key ] } )
 
