@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 
-import apiRoutes from './routes'
+import apiRoutes from './src/routes'
 
 const app = express()
 
