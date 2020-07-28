@@ -37,6 +37,7 @@
     "express": "^4.17.1",
     "moment": "^2.27.0",
     "mongoose": "^5.9.20",
+    "mongoose-type-email": "^1.0.12",
     "morgan": "^1.10.0"
   }
 }
