@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
+import cors from 'cors'
+import compression from 'compression'
 
 import { version } from './package.json'
 import apiRoutes from './src/routes'
@@ -25,9 +27,11 @@ const startServer = async () => {
     return process.exit( 126 )
   }
 
-  // Middleware
-  app.use( morgan( 'dev' ) ) // Deprecation warning is because of https://github.com/expressjs/morgan/issues/190
+  // Middlewares
   app.use( bodyParser.json() )
+  app.use( cors() )
+  app.use( compression() )
+  app.use( morgan( 'dev' ) ) // Deprecation warning is because of https://github.com/expressjs/morgan/issues/190
 
   // Routes
   app.get( '/', ( _req, res ) => {
