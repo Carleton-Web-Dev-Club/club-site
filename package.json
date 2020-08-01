@@ -40,7 +40,7 @@
     "express": "^4.17.1",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
-    "mongoose": "^5.9.20",
+    "mongoose": "^5.9.27",
     "mongoose-type-email": "^1.0.12",
     "morgan": "^1.10.0"
   }
