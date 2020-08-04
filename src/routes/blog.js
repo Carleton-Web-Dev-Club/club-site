@@ -7,7 +7,11 @@ const router = Router()
 // Get list of all blogs
 router.get( '/', async ( _, res, next ) => {
   try {
-    const blogs = await BlogSchema.find().select( '-__v' )
+    const blogs = await BlogSchema
+      .find()
+      .select( '-__v' )
+      .populate( 'author' )
+
     return res.json( blogs )
   } catch ( err ) { return next( err ) }
 } )
@@ -35,7 +39,7 @@ router.get( '/:blogId', async (
   next,
 ) => {
   try {
-    const blog = await GetItemById( BlogSchema, blogId )
+    const blog = await GetItemById( BlogSchema, blogId, 'author' )
 
     if ( blog ) return res.json( blog )
 
@@ -58,7 +62,10 @@ router.patch( '/:blogId', async (
 
       // Add all the incoming fields to object
       Object.keys( body )
-        .filter( key => key !== '_id' ) // No one should be able to update `_id`
+        // No one should be able to update `_id`
+        .filter( key => key !== '_id' )
+        // `author` can be updated using User Routes
+        .filter( key => key !== 'author' )
         .forEach( key => { updatedFields[ key ] = body[ key ] } )
 
       // Convert tags and category to array

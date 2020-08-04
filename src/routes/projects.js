@@ -7,7 +7,11 @@ const app = Router()
 // Get list of all projects
 app.get( '/', async ( _, res, next ) => {
   try {
-    const events = await ProjectSchema.find().select( '-__v' )
+    const events = await ProjectSchema
+      .find()
+      .select( '-__v' )
+      .populate( 'contributors' )
+
     return res.json( events )
   } catch ( err ) { return next( err ) }
 } )
@@ -19,7 +23,7 @@ app.get( '/:projectId', async (
   next,
 ) => {
   try {
-    const event = await GetItemById( ProjectSchema, projectId )
+    const event = await GetItemById( ProjectSchema, projectId, 'contributors' )
 
     if ( event ) return res.json( event )
     return next( DnE( projectId ) )

@@ -8,7 +8,7 @@ export const BlogSchema = mongoose.model(
   new mongoose.Schema( {
     author: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Users',
       required: true,
     },
     content: { type: String, required: true },
@@ -28,7 +28,7 @@ export const EventSchema = mongoose.model(
   new mongoose.Schema( {
     organizer: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Users',
       required: true,
     },
     title: { type: String, required: true },
@@ -44,7 +44,7 @@ export const ProjectSchema = mongoose.model(
   new mongoose.Schema( {
     contributors: [ {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Users',
       required: true,
     } ],
     name: { type: String, required: true },
@@ -96,7 +96,7 @@ export const AuthSchema = mongoose.model(
     // one to one relation with users
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Users',
     },
   } ),
 )

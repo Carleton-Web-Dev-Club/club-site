@@ -47,9 +47,13 @@ export const ValidateDateTime = ( begin, finish ) => {
  * Return an object from DB
  * @param {MongooseModel} schema Mongoose Schema to query DB
  * @param {string} id The ID for the blog to query
+ * @param {string} populateFields Any subfields to populate
  * @returns {Object} with the data or null
  */
-export const GetItemById = async ( schema, id ) => schema.findById( id ).select( '-__v' )
+export const GetItemById = async ( schema, id, populateFields ) => schema
+  .findById( id )
+  .select( '-__v' )
+  .populate( populateFields )
 
 /**
  *

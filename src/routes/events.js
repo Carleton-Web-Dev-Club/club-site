@@ -7,7 +7,11 @@ const app = Router()
 // Get list of all events
 app.get( '/', async ( _, res, next ) => {
   try {
-    const events = await EventSchema.find().select( '-__v' )
+    const events = await EventSchema
+      .find()
+      .select( '-__v' )
+      .populate( 'organizer' )
+
     return res.json( events )
   } catch ( err ) { return next( err ) }
 } )
@@ -19,7 +23,7 @@ app.get( '/:eventId', async (
   next,
 ) => {
   try {
-    const event = await GetItemById( EventSchema, eventId )
+    const event = await GetItemById( EventSchema, eventId, 'organizer' )
 
     if ( event ) return res.json( event )
     return next( DnE( eventId ) )
