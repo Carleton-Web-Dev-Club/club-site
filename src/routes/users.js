@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { omit } from 'lodash'
 import { AuthSchema, UserSchema } from '../models/schemas'
 import { USER_ROLES } from '../lib/consts'
-import { DnE } from '../lib/utils'
+import { DnE, GetItemById } from '../lib/utils'
 
 const app = Router()
 
@@ -32,6 +32,36 @@ app.get( '/:userId', async (
       .populate( 'login', '-password -user -__v' )
 
     if ( user ) return res.json( user )
+    return next( DnE( userId ) )
+  } catch ( err ) { return next( err ) }
+} )
+
+// Update an user using ID
+app.patch( '/:userId', async (
+  {
+    body,
+    params: { userId },
+  },
+  res,
+  next,
+) => {
+  try {
+    const user = await GetItemById( UserSchema, userId )
+
+    if ( user ) {
+      const updatedFields = {
+        name: body.name || user.name,
+        socialAccounts: {
+          ...user.socialAccounts,
+          ...body.socialAccounts,
+        },
+      }
+
+      // update the fields in DB (for UsersSchema only)
+      await UserSchema.updateOne( { _id: userId }, { $set: updatedFields } ).exec()
+
+      return res.json( { message: 'Updated the following items', updatedFields } )
+    }
     return next( DnE( userId ) )
   } catch ( err ) { return next( err ) }
 } )
