@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import { omit } from 'lodash'
 import { AuthSchema, UserSchema } from '../models/schemas'
 import { USER_ROLES } from '../lib/consts'
+import { DnE } from '../lib/utils'
 
 const app = Router()
 
@@ -15,6 +16,23 @@ app.get( '/', async ( _, res, next ) => {
       .populate( 'login', '-password -user -__v' )
 
     return res.json( users )
+  } catch ( err ) { return next( err ) }
+} )
+
+// Get a user using ID
+app.get( '/:userId', async (
+  { params: { userId } },
+  res,
+  next,
+) => {
+  try {
+    const user = await UserSchema
+      .findById( userId )
+      .select( '-__v' )
+      .populate( 'login', '-password -user -__v' )
+
+    if ( user ) return res.json( user )
+    return next( DnE( userId ) )
   } catch ( err ) { return next( err ) }
 } )
 
