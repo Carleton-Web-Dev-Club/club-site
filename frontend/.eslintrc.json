@@ -1,0 +1,80 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "rules": {
+        "no-console": "off",
+        "array-bracket-spacing": [
+            "error",
+            "always"
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed",
+            {
+                "requireForBlockBody": false
+            }
+        ],
+        "computed-property-spacing": [
+            "error",
+            "always"
+        ],
+        "func-names": [
+            "warn",
+            "never"
+        ],
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "import/prefer-default-export": "off",
+        "object-curly-newline": [
+            "error",
+            {
+                "consistent": true
+            }
+        ],
+        "react/jsx-filename-extension": "off",
+        "require-jsdoc": "warn",
+        "semi": [
+            "error",
+            "never"
+        ],
+        "semi-style": [
+            "error",
+            "first"
+        ],
+        "space-in-parens": [
+            "error",
+            "always"
+        ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 1
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+        "simple-import-sort/sort": "off",
+        "import/order": [
+            "error",
+            {
+                "newlines-between": "always"
+            }
+        ]
+    }
+}

@@ -1,7 +1,12 @@
 {
-    "files.autoSave": "onFocusChange",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
-    },
-    "git.ignoreLimitWarning": true,
+  "files.autoSave": "onFocusChange",
+  "eslint.run": "onSave",
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  // https://github.com/microsoft/vscode-eslint/issues/696#issuecomment-537445913
+  "eslint.workingDirectories": [
+    "./backend",
+    "./frontend"
+  ]
 }
