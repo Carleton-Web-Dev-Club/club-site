@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --mode development && node ./server/index.js",
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .js,.jsx --color",
-    "format":"prettier . --write"
+    "start": "run-p -l start:*",
+    "start:webpack": "webpack --mode development",
+    "start:server": "node ./server/index.js",
+    "clean": "rimraf build",
+    "build:webpack":"webpack --mode production",
+    "build": "run-s -l clean build:webpack",
+    "lint": "eslint . --ext .js,.jsx --color"
   },
   "dependencies": {
     "babel-plugin-css-modules-transform": "^1.6.2",
@@ -36,7 +38,9 @@
     "html-webpack-plugin": "^4.5.0",
     "ignore-styles": "^5.0.1",
     "mini-css-extract-plugin": "^0.11.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",

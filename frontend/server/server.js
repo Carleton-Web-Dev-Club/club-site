@@ -40,5 +40,5 @@ app.use( ( req, res ) => {
 } )
 
 app.listen( PORT, () => {
-  console.log( `SSR running on port ${PORT}` )
+  console.log( `SSR running on port http://localhost:${PORT}` )
 } )
