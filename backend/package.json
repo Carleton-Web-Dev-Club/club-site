@@ -1,5 +1,5 @@
 {
-  "name": "carleton-web-dev-club-api",
+  "name": "club-site-api",
   "version": "0.1.0",
   "description": "RESTful API for Carleton Web Dev Club",
   "main": "index.js",
@@ -11,20 +11,9 @@
     "lint": "eslint .",
     "start:mongo": "cd mongodb && docker-compose up -d",
     "stop:mongo": "cd mongodb && docker-compose down",
-    "install:docker": "cd mongodb && docker-compose pull",
-    "docs": "docsify serve docs"
+    "install:docker": "cd mongodb && docker-compose pull"
   },
-  "author": "https://github.com/Carleton-Web-Dev-Club/club-site-api/graphs/contributors",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Carleton-Web-Dev-Club/club-site-api"
-  },
-  "bugs": {
-    "url": "https://github.com/Carleton-Web-Dev-Club/club-site-api/issues"
-  },
-  "homepage": "https://carleton-web-dev-club.github.io/club-site-api/",
   "devDependencies": {
-    "docsify-cli": "^4.4.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
