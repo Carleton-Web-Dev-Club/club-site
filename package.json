@@ -6,8 +6,8 @@
     "postinstall": "run-p -l install:*",
     "install:frontend": "cd frontend && npm i",
     "install:backend": "cd backend && npm i",
-    "start:frontend":"cd frontend && npm start",
-    "start:backend":"cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start",
     "docs": "docsify serve docs"
   },
   "repository": {
