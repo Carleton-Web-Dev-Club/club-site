@@ -1,3 +1,3 @@
-# Carleton Web Dev Club RESTful API
+# Carleton Web Dev Club
 
-### Checkout docs ->  https://carleton-web-dev-club.github.io/club-site-api/
+### Project Related Docs ->  https://carleton-web-dev-club.github.io/club-site/

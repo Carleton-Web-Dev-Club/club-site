@@ -1,0 +1,49 @@
+{
+  "name": "club-site-frontend",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-p -l start:*",
+    "start:webpack": "webpack --mode development",
+    "start:server": "node ./server/index.js",
+    "clean": "rimraf build",
+    "build:webpack": "webpack --mode production",
+    "build": "run-s -l clean build:webpack",
+    "lint": "eslint . --ext .js,.jsx --color"
+  },
+  "dependencies": {
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/register": "^7.11.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.1.1",
+    "css-loader": "^4.3.0",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.1",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.5.0",
+    "ignore-styles": "^5.0.1",
+    "mini-css-extract-plugin": "^0.11.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
