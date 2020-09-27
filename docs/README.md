@@ -1,5 +1,5 @@
-# Carleton Web Dev Club RESTful API
+# Carleton Web Dev Club Site
 
 ## 🚧 Work in progress 🚧
 
-If you would like to contribute, check [contributions](getting-started/contributing.md) section.
+Latest contribution `docs` coming soon!
