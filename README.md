@@ -16,7 +16,7 @@ For clarity and ease of use, the repository is structured:
 
 No matter your background or proficiency, we'd love your input!
 If you find a bug or some odd behaviour in the site, please open an issue using the
-[template](/.github/ISSUE_TEMPLATE/bug_report.md).
+[template](https://github.com/Carleton-Web-Dev-Club/club-site/issues/new?assignees=&labels=&template=bug_report.md).
 
 If you're interested in contributing features or code, please review the
 [feature request template](https://github.com/Carleton-Web-Dev-Club/club-site/issues/new?assignees=&labels=&template=feature_request.md) and \*WIP* [styleguide](/).
