@@ -19,7 +19,7 @@ If you find a bug or some odd behaviour in the site, please open an issue using 
 [template](/.github/ISSUE_TEMPLATE/bug_report.md).
 
 If you're interested in contributing features or code, please review the
-[feature request template](/.github/ISSUE_TEMPLATE/feature_request.md) and \*WIP* [styleguide](/).
+[feature request template](https://github.com/Carleton-Web-Dev-Club/club-site/issues/new?assignees=&labels=&template=feature_request.md) and \*WIP* [styleguide](/).
 It's A-OK if you need help with some of the nitty-gritty details too; we'll try our best to give quality feedback on
 pull requests, if they're not quite ready to merge :)
 
