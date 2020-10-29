@@ -8,6 +8,9 @@
     "install:backend": "cd backend && npm i",
     "start:frontend": "cd frontend && npm start",
     "start:backend": "cd backend && npm start",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "lint": "run-p -l lint:*",
     "docs": "docsify serve docs"
   },
   "repository": {
