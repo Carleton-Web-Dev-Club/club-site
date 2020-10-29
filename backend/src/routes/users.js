@@ -1,43 +1,43 @@
-import { Router } from 'express'
-import bcrypt from 'bcryptjs'
-import { omit } from 'lodash'
-import { AuthSchema, UserSchema } from '../models/schemas'
-import { USER_ROLES } from '../lib/consts'
-import { DnE, GetItemById } from '../lib/utils'
+import { Router } from 'express';
+import bcrypt from 'bcryptjs';
+import { omit } from 'lodash';
+import { AuthSchema, UserSchema } from '../models/schemas';
+import { USER_ROLES } from '../lib/consts';
+import { DnE, GetItemById } from '../lib/utils';
 
-const app = Router()
+const app = Router();
 
 // Get all users
-app.get( '/', async ( _, res, next ) => {
+app.get('/', async (_, res, next) => {
   try {
     const users = await UserSchema
       .find()
-      .select( '-__v' )
-      .populate( 'login', '-password -user -__v' )
+      .select('-__v')
+      .populate('login', '-password -user -__v');
 
-    return res.json( users )
-  } catch ( err ) { return next( err ) }
-} )
+    return res.json(users);
+  } catch (err) { return next(err); }
+});
 
 // Get a user using ID
-app.get( '/:userId', async (
+app.get('/:userId', async (
   { params: { userId } },
   res,
   next,
 ) => {
   try {
     const user = await UserSchema
-      .findById( userId )
-      .select( '-__v' )
-      .populate( 'login', '-password -user -__v' )
+      .findById(userId)
+      .select('-__v')
+      .populate('login', '-password -user -__v');
 
-    if ( user ) return res.json( user )
-    return next( DnE( userId ) )
-  } catch ( err ) { return next( err ) }
-} )
+    if (user) return res.json(user);
+    return next(DnE(userId));
+  } catch (err) { return next(err); }
+});
 
 // Update an user using ID
-app.patch( '/:userId', async (
+app.patch('/:userId', async (
   {
     body,
     params: { userId },
@@ -46,61 +46,61 @@ app.patch( '/:userId', async (
   next,
 ) => {
   try {
-    const user = await GetItemById( UserSchema, userId )
+    const user = await GetItemById(UserSchema, userId);
 
-    if ( user ) {
+    if (user) {
       const updatedFields = {
         name: body.name || user.name,
         socialAccounts: {
           ...user.socialAccounts,
           ...body.socialAccounts,
         },
-      }
+      };
 
       // update the fields in DB (for UsersSchema only)
-      await UserSchema.updateOne( { _id: userId }, { $set: updatedFields } ).exec()
+      await UserSchema.updateOne({ _id: userId }, { $set: updatedFields }).exec();
 
-      return res.json( { message: 'Updated the following items', updatedFields } )
+      return res.json({ message: 'Updated the following items', updatedFields });
     }
-    return next( DnE( userId ) )
-  } catch ( err ) { return next( err ) }
-} )
+    return next(DnE(userId));
+  } catch (err) { return next(err); }
+});
 
 // Register
-app.post( '/', async ( { body }, res, next ) => {
+app.post('/', async ({ body }, res, next) => {
   try {
-    const hashedPassword = await bcrypt.hash( body.password, 10 )
+    const hashedPassword = await bcrypt.hash(body.password, 10);
 
     // Save user credentials for auth document
-    const userAuth = new AuthSchema( {
+    const userAuth = new AuthSchema({
       email: body.email,
       password: hashedPassword,
       role: USER_ROLES.basic,
-    } )
-    const saveUserAuth = await userAuth.save()
-    const { _id: loginId } = saveUserAuth
+    });
+    const saveUserAuth = await userAuth.save();
+    const { _id: loginId } = saveUserAuth;
 
     // Save user User Document
-    const user = UserSchema( {
+    const user = UserSchema({
       name: body.name,
       organization: body.organization,
       socialAccounts: body.socialAccounts,
       login: loginId,
-    } )
-    const saveUser = await user.save()
-    const { _id: userId } = saveUser
+    });
+    const saveUser = await user.save();
+    const { _id: userId } = saveUser;
 
     // Link User document back to Auth Document (One to One relationship)
-    await AuthSchema.updateOne( { _id: saveUserAuth.id }, { $set: { user: userId } } )
+    await AuthSchema.updateOne({ _id: saveUserAuth.id }, { $set: { user: userId } });
 
-    return res.json( {
+    return res.json({
       ...saveUser.toJSON(),
       login: {
         // Remove password from response
-        ...omit( saveUserAuth.toJSON(), 'password' ),
+        ...omit(saveUserAuth.toJSON(), 'password'),
       },
-    } )
-  } catch ( err ) { return next( err ) }
-} )
+    });
+  } catch (err) { return next(err); }
+});
 
-export default app
+export default app;

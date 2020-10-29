@@ -1,11 +1,11 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Home from './pages/Home'
-import NotFound from './pages/NotFound'
-import Navbar from './components/Navbar'
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Navbar from './components/Navbar';
 
-import './main.css'
+import './main.css';
 
 const App = () => (
   <>
@@ -19,6 +19,6 @@ const App = () => (
       </Route>
     </Switch>
   </>
-)
+);
 
-export default App
+export default App;
