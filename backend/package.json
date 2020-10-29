@@ -14,9 +14,9 @@
     "install:docker": "cd mongodb && docker-compose pull"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.12.1",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
