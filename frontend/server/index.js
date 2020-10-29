@@ -1,16 +1,17 @@
-require( 'ignore-styles' )
+/* eslint-disable import/no-extraneous-dependencies */
+require('ignore-styles');
 
-require( '@babel/register' )( {
-  ignore: [ /(node_modules)/ ],
-  presets: [ '@babel/preset-env', '@babel/preset-react' ],
+require('@babel/register')({
+  ignore: [/(node_modules)/],
+  presets: ['@babel/preset-env', '@babel/preset-react'],
   plugins: [
     [
       'css-modules-transform', {
         generateScopedName: '[name]_[local]',
-        extensions: [ '.css' ],
+        extensions: ['.css'],
       },
     ],
   ],
-} )
+});
 
-require( './server' )
+require('./server');
