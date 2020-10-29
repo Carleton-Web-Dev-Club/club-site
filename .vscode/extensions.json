@@ -2,5 +2,6 @@
 	"recommendations": [
 		"dbaeumer.vscode-eslint",
 		"humao.rest-client",
+		"vivaxy.vscode-conventional-commits"
 	]
 }

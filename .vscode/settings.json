@@ -8,5 +8,10 @@
   "eslint.workingDirectories": [
     "./backend",
     "./frontend"
+  ],
+  "conventionalCommits.scopes": [
+    "frontend",
+    "docs",
+    "backend"
   ]
 }
