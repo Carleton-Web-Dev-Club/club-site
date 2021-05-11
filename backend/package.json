@@ -27,7 +27,7 @@
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "mongoose": "^5.10.2",
     "mongoose-type-email": "^1.0.12",
