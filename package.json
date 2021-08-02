@@ -10,7 +10,8 @@
     "start:frontend": "npm run start --workspace=frontend",
     "start:backend": "npm run start --workspace=backend",
     "lint": "npm run lint --workspaces",
-    "docs": "docsify serve docs"
+    "docs": "docsify serve docs",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,6 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "docsify-cli": "^4.4.1",
-    "husky": "^4.3.0"
+    "husky": "^7.0.1"
   }
 }
