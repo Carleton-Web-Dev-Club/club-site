@@ -1,6 +1,7 @@
 ## Pre-requisites
 * [Git](https://git-scm.com/)
-* [Node.JS](https://nodejs.org/en/) x64, version `>=12.x`
+* [Node.JS](https://nodejs.org/en/) x64, version `>=14.x`
+  * We use [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) so [`npm@7`](https://github.blog/2021-02-02-npm-7-is-now-generally-available/) is needed.
 * [Docker desktop](https://docs.docker.com/desktop/#download-and-install)
 * [`docker-compose`](https://docs.docker.com/compose/install/)
 
