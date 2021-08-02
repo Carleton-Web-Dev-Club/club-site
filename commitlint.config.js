@@ -17,9 +17,7 @@ module.exports = {
         "test",
       ],
     ],
-    scope: {
-      allowed: ["backend", "frontend", "docs"],
-    },
+    "scope-enum": [2, "always", ["backend", "frontend", "docs"]],
     "body-max-line-length": [0],
   },
 };
