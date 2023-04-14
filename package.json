@@ -13,6 +13,7 @@
     "docs": "docsify serve docs",
     "prepare": "husky install"
   },
+  "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Carleton-Web-Dev-Club/club-site.git"
